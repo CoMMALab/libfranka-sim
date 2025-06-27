@@ -19,13 +19,20 @@ def main():
         default=False,
         help="Enable visualization of the Genesis simulator",
     )
+    parser.add_argument(
+        "-p",
+        "--port",
+        type=int,
+        default=1337,
+        help="Enter port for multiple sims"
+    )
     args = parser.parse_args()
 
     print(f"Starting Franka Simulation Server {'with' if args.vis else 'without'} visualization")
     print("Connect to the server using 'localhost' or '127.0.0.1' as the robot IP address")
     print("Press Ctrl+C to stop the server")
 
-    server = FrankaSimServer(enable_vis=args.vis)
+    server = FrankaSimServer(enable_vis=args.vis, port=args.port)
     try:
         server.start()
     except KeyboardInterrupt:
